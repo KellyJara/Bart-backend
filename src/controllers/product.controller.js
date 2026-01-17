@@ -11,16 +11,16 @@ export const getProductById = async (req, res) => {
 }
 
 export const createProduct = async (req, res) => {
-    const {name, category, price, imgURL} = req.body;
+    const {name, category, price, imgURL, description, stock, isActive, inCart} = req.body;
 
-    const newProduct = new Product({name, category, price, imgURL});
+    const newProduct = new Product({name, category, price, imgURL, description, stock, isActive, inCart});
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
 }
 
 export const updateProduct = async(req, res) => {
-    const {name, category, price, imgURL} = req.body;
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, {name, category, price, imgURL}, {new: true});
+    const {name, category, price, imgURL, description, stock, isActive, inCart} = req.body;
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, {name, category, price, imgURL, description, stock, isActive, inCart}, {new: true});
     res.status(200).json(updatedProduct);
 }
 
