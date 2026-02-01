@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/signup',
     [checkDuplicateUsernameOrEmail, checkRolesExisted],
-     authController.signUp)
-router.post('/signin', authController.signIn)
+     authController.signUp);
+router.post('/signin', authController.signIn);
 
 export default router;

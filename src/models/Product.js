@@ -14,9 +14,10 @@ const productSchema = new Schema({
     type: Boolean,
     default: true
   },
-  inCart: {
-    type: Boolean,
-    default: false
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 }, { 
   timestamps: true,

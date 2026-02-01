@@ -9,4 +9,14 @@ router.post('/createuser',
     [verifyToken, isAdmin, checkDuplicateUsernameOrEmail, checkRolesExisted],
     userCtrl.createUser);
 
+router.get('/:userId', 
+    [verifyToken],
+    userCtrl.getUserProfile);
+
+router.get('/users', userCtrl.getAllUsers);
+
+router.put('/:userId', 
+    [verifyToken],
+    userCtrl.updateUser)
+
 export default router;
