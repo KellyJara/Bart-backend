@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import http from 'http';
 import { Server } from 'socket.io';
 import app from './app.js';
@@ -5,7 +6,7 @@ import Chat from './models/Chat.js'
 import './database.js';
 
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // 1️⃣ Crear servidor HTTP a partir de tu app de Express
 const server = http.createServer(app);

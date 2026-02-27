@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/forFreedb')
-  .then((db) => console.log('Database connected'))
-  .catch((err) => console.log(err));
+const URI = process.env.MONGODB_URI;
 
+if (!URI) {
+  throw new Error('❌ MONGODB_URI no está definida');
+}
+
+mongoose.connect(URI)
+  .then(() => console.log('✅ MongoDB Atlas connected'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
