@@ -9,9 +9,11 @@ router.post('/createuser',
     [verifyToken, isAdmin, checkDuplicateUsernameOrEmail, checkRolesExisted],
     userCtrl.createUser);
 
-router.get('/:userId', 
+router.get('/profile', 
     [verifyToken],
     userCtrl.getUserProfile);
+
+router.get('/:id', userCtrl.getUserById);
 
 router.get('/users', userCtrl.getAllUsers);
 

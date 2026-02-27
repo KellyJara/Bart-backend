@@ -47,3 +47,18 @@ export const removeFromCart = async (req, res) => {
     res.status(500).json({ message: 'Error removing from cart' });
   }
 };
+
+export const getCart = async (req, res) => {
+  try {
+    const userId = req.userId; // viene del token
+
+    const user = await User.findById(userId).populate('cart.product');
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json(user.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching cart' });
+  }
+};

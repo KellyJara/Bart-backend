@@ -71,6 +71,30 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id)
+      .select('-password')
+      .populate('roles', 'name');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const products = await Product.find({ owner: user._id });
+
+    res.json({
+      user,
+      products,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching user', error });
+  }
+};
+
 /**
  * Obtener todos los usuarios
  */
