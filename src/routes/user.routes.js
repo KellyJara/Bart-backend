@@ -17,8 +17,6 @@ router.get('/:id', userCtrl.getUserById);
 
 router.get('/users', userCtrl.getAllUsers);
 
-router.put('/:userId', 
-    [verifyToken],
-    userCtrl.updateUser)
+router.put('/profile', [verifyToken], userCtrl.updateUser);
 
 export default router;

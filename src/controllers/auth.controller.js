@@ -7,14 +7,12 @@ export const signUp = async (req, res) => {
   try {
     const { username, email, password, roles } = req.body;
 
-    // 1️⃣ Crear el usuario y encriptar contraseña
     const newUser = new User({
       username,
       email,
       password: await User.encryptPassword(password),
     });
 
-    // 2️⃣ Asignar roles
     if (roles && roles.length > 0) {
       const foundRoles = await Role.find({ name: { $in: roles } });
       newUser.roles = foundRoles.map(role => role._id);
@@ -23,17 +21,13 @@ export const signUp = async (req, res) => {
       newUser.roles = [defaultRole._id];
     }
 
-    // 3️⃣ Guardar usuario en DB
     const savedUser = await newUser.save();
 
-    // 4️⃣ Generar token JWT
     const token = jwt.sign({ id: savedUser._id }, config.SECRET, { expiresIn: 86400 });
 
-    // 5️⃣ Obtener nombres de roles
     const populatedRoles = await Role.find({ _id: { $in: savedUser.roles } });
     const roleNames = populatedRoles.map(role => role.name);
 
-    // 6️⃣ Enviar respuesta consistente con signIn
     res.status(200).json({
       token,
       roles: roleNames,

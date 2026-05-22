@@ -5,6 +5,7 @@ import app from './app.js';
 import Chat from './models/Chat.js'
 import './database.js';
 
+app.set('trust proxy', 1);
 
 const PORT = process.env.PORT || 4000;
 
